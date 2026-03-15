@@ -27,6 +27,14 @@ NEXT_PUBLIC_APP_URL=http://localhost:5000
 
 **Supabase 키 위치**: Supabase 대시보드 > Settings > API
 
+### 비밀번호 재설정(이메일) 리다이렉트 URL
+
+비밀번호 찾기 후 이메일 링크가 정상 동작하려면 Supabase 대시보드에서 리다이렉트 URL을 등록하세요.
+
+- **Authentication > URL Configuration > Redirect URLs** 에 다음을 추가:
+  - 개발: `http://localhost:3000/reset-password` (또는 사용 중인 포트)
+  - 운영: `https://yourdomain.com/reset-password`
+
 ## Stripe 제품 및 가격 설정
 
 1. Stripe 대시보드 > 제품 메뉴

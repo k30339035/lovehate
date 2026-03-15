@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { loadStripe } from '@stripe/stripe-js'
 import axios from 'axios'
+import { useLanguage } from '@/contexts/LanguageContext'
 
 // Stripe는 필요할 때만 로드 (lazy loading)
 const getStripe = () => {
@@ -21,10 +22,14 @@ interface PaymentButtonProps {
 }
 
 export default function PaymentButton({ plan }: PaymentButtonProps) {
+  const { t } = useLanguage()
   const [loading, setLoading] = useState(false)
 
   const handlePayment = async () => {
-    if (!plan.priceId) return
+    if (!plan.priceId) {
+      alert('결제 설정이 완료되지 않았습니다. NEXT_PUBLIC_STRIPE_PRICE_ID를 설정해 주세요.')
+      return
+    }
 
     setLoading(true)
     try {
@@ -62,7 +67,7 @@ export default function PaymentButton({ plan }: PaymentButtonProps) {
       disabled={loading}
       className="w-full bg-primary-600 text-white py-3 rounded-lg font-semibold hover:bg-primary-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
     >
-      {loading ? '처리 중...' : '구독하기'}
+      {loading ? t('payment.loading') : t('payment.subscribe')}
     </button>
   )
 }

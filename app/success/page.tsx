@@ -3,8 +3,10 @@
 import { useEffect, useState, Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
+import { useLanguage } from '@/contexts/LanguageContext'
 
 function SuccessContent() {
+  const { t } = useLanguage()
   const searchParams = useSearchParams()
   const sessionId = searchParams.get('session_id')
   const [loading, setLoading] = useState(true)
@@ -46,22 +48,20 @@ function SuccessContent() {
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
           </svg>
         </div>
-        <h1 className="text-3xl font-bold text-gray-900 mb-4">결제 완료!</h1>
-        <p className="text-gray-600 mb-8">
-          구독이 성공적으로 완료되었습니다. 이제 모든 프리미엄 기능을 사용하실 수 있습니다.
-        </p>
+        <h1 className="text-3xl font-bold text-gray-900 mb-4">{t('success.title')}</h1>
+        <p className="text-gray-600 mb-8">{t('success.desc')}</p>
         <div className="space-y-4">
           <Link
-            href="#download"
+            href="/#play"
             className="block w-full bg-primary-600 text-white py-3 rounded-lg font-semibold hover:bg-primary-700 transition"
           >
-            앱 다운로드하기
+            {t('success.goPlay')}
           </Link>
           <Link
             href="/"
             className="block w-full bg-gray-100 text-gray-700 py-3 rounded-lg font-semibold hover:bg-gray-200 transition"
           >
-            홈으로 돌아가기
+            {t('success.goHome')}
           </Link>
         </div>
       </div>

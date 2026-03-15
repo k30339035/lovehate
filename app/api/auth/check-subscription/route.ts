@@ -14,7 +14,7 @@ export async function GET(request: NextRequest) {
         { status: 400 }
       )
     }
-
+ 
     // 사용자 조회
     const user = await getUserByEmail(email)
     if (!user) {

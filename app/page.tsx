@@ -7,9 +7,12 @@ const Hero = dynamic(() => import('@/components/Hero'), {
 })
 const Features = dynamic(() => import('@/components/Features'))
 const Games = dynamic(() => import('@/components/Games'))
+const SubwayGameSection = dynamic(() => import('@/components/SubwayGameSection'))
+const DroneSelectScreen = dynamic(() => import('@/components/DroneSelectScreen'))
 const HowItWorks = dynamic(() => import('@/components/HowItWorks'))
 const Pricing = dynamic(() => import('@/components/Pricing'))
 const Download = dynamic(() => import('@/components/Download'))
+const Donate = dynamic(() => import('@/components/Donate'))
 const Footer = dynamic(() => import('@/components/Footer'))
 
 export default function Home() {
@@ -18,10 +21,13 @@ export default function Home() {
       <Header />
       <Hero />
       <Games />
+      <SubwayGameSection />
+      <DroneSelectScreen />
       <Features />
       <HowItWorks />
       <Pricing />
       <Download />
+      <Donate />
       <Footer />
     </main>
   )

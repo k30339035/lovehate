@@ -9,12 +9,9 @@ const nextConfig = {
   poweredByHeader: false,
   // 컴파일러 최적화
   swcMinify: true,
-  // 실험적 기능
-  experimental: {
-    optimizeCss: true,
-  },
 }
 
 module.exports = nextConfig
 
 
+ 

@@ -1,81 +1,81 @@
 'use client'
 
 import Link from 'next/link'
+import { useLanguage } from '@/contexts/LanguageContext'
 
 export default function Footer() {
+  const { t } = useLanguage()
   return (
     <footer className="bg-gray-900 text-gray-300 py-12 px-4">
       <div className="container mx-auto max-w-6xl">
         <div className="grid md:grid-cols-4 gap-8 mb-8">
           <div>
-            <h3 className="text-white text-xl font-bold mb-4">LoveHate 게임</h3>
-            <p className="text-gray-400">
-              아이들을 위한 교육 게임 플랫폼입니다.
-            </p>
+            <h3 className="text-white text-xl font-bold mb-4">{t('footer.brand')}</h3>
+            <p className="text-gray-400">{t('footer.desc')}</p>
           </div>
-          
+
           <div>
-            <h4 className="text-white font-semibold mb-4">게임</h4>
+            <h4 className="text-white font-semibold mb-4">{t('footer.games')}</h4>
             <ul className="space-y-2">
               <li>
-                <Link href="#games" className="hover:text-white transition">
-                  게임 소개
-                </Link>
+                <Link href="#games" className="hover:text-white transition-all inline-block hover:translate-x-1">{t('footer.gameIntro')}</Link>
               </li>
               <li>
-                <Link href="#features" className="hover:text-white transition">
-                  플랫폼 특징
-                </Link>
+                <Link href="#features" className="hover:text-white transition-all inline-block hover:translate-x-1">{t('footer.platformFeatures')}</Link>
               </li>
               <li>
-                <Link href="#pricing" className="hover:text-white transition">
-                  구독 가격
-                </Link>
+                <Link href="#pricing" className="hover:text-white transition-all inline-block hover:translate-x-1">{t('footer.subscribePrice')}</Link>
+              </li>
+              <li>
+                <Link href="#donate" className="hover:text-white transition-all inline-block hover:translate-x-1">{t('footer.donate')}</Link>
               </li>
             </ul>
           </div>
-          
+
           <div>
-            <h4 className="text-white font-semibold mb-4">지원</h4>
+            <h4 className="text-white font-semibold mb-4">{t('footer.support')}</h4>
             <ul className="space-y-2">
               <li>
-                <Link href="/support" className="hover:text-white transition">
-                  고객 지원
-                </Link>
+                <Link href="/support" className="hover:text-white transition-all inline-block hover:translate-x-1">{t('footer.customerSupport')}</Link>
               </li>
               <li>
-                <Link href="/faq" className="hover:text-white transition">
-                  자주 묻는 질문
-                </Link>
+                <Link href="/faq" className="hover:text-white transition-all inline-block hover:translate-x-1">{t('footer.faq')}</Link>
               </li>
               <li>
-                <Link href="/contact" className="hover:text-white transition">
-                  문의하기
-                </Link>
+                <Link href="/contact" className="hover:text-white transition-all inline-block hover:translate-x-1">{t('footer.contact')}</Link>
               </li>
             </ul>
           </div>
-          
+
           <div>
-            <h4 className="text-white font-semibold mb-4">연락처</h4>
+            <h4 className="text-white font-semibold mb-4">{t('footer.legal')}</h4>
             <ul className="space-y-2">
-              <li>이메일: support@lovehate.com</li>
-              <li>전화: 02-1234-5678</li>
-              <li className="flex gap-4 mt-4">
-                <a href="#" className="hover:text-white transition">Facebook</a>
-                <a href="#" className="hover:text-white transition">Instagram</a>
-                <a href="#" className="hover:text-white transition">Twitter</a>
+              <li>
+                <Link href="/privacy" className="hover:text-white transition-all inline-block hover:translate-x-1">{t('footer.privacy')}</Link>
+              </li>
+              <li>
+                <Link href="/terms" className="hover:text-white transition-all inline-block hover:translate-x-1">{t('footer.terms')}</Link>
+              </li>
+              <li>
+                <Link href="/data-deletion" className="hover:text-white transition-all inline-block hover:translate-x-1">{t('footer.dataDeletion')}</Link>
               </li>
             </ul>
           </div>
         </div>
-        
+
+        <div className="mb-8">
+          <h4 className="text-white font-semibold mb-4">{t('footer.contactTitle')}</h4>
+          <ul className="space-y-2">
+            <li className="text-sm text-gray-400">{t('footer.emailNote')}</li>
+            <li>{t('footer.email1')}: createman@naver.com</li>
+            <li>{t('footer.email2')}: stwo.kim@gmail.com</li>
+          </ul>
+        </div>
+
         <div className="border-t border-gray-800 pt-8 text-center text-gray-400">
-          <p>&copy; 2024-2026 LoveHate 게임. All rights reserved.</p>
+          <p>&copy; 2024-2026 {t('footer.copyright')}</p>
         </div>
       </div>
     </footer>
   )
 }
-
-

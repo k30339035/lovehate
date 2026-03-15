@@ -1,11 +1,11 @@
 {
-  "name": "lovehate-games-platform",
+  "name": "kpai-games-platform",
   "version": "1.0.0",
-  "description": "아이들을 위한 교육 게임 플랫폼",
+  "description": "KPAI - Korea Play AI 아이들을 위한 교육 게임 플랫폼",
   "scripts": {
-    "dev": "next dev -p 5000",
+    "dev": "next dev",
     "build": "next build",
-    "start": "next start -p 5000",
+    "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {

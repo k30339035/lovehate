@@ -50,9 +50,35 @@ CREATE TABLE payments (
 CREATE INDEX idx_subscriptions_user_id ON subscriptions(user_id);
 CREATE INDEX idx_subscriptions_stripe_customer_id ON subscriptions(stripe_customer_id);
 CREATE INDEX idx_payments_user_id ON payments(user_id);
+
+-- 포인트 테이블 (SelectRobot 승리 포인트)
+CREATE TABLE user_points (
+  user_id UUID PRIMARY KEY REFERENCES users(id) ON DELETE CASCADE,
+  total_points INTEGER NOT NULL DEFAULT 0,
+  updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+CREATE TABLE point_logs (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id UUID REFERENCES users(id) ON DELETE CASCADE,
+  points_delta INTEGER NOT NULL,
+  reason TEXT NOT NULL,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+CREATE INDEX idx_point_logs_user_id ON point_logs(user_id);
 ```
 
-### 3. 환경 변수 설정
+### 3. Authentication (회원가입/로그인) 활성화
+
+Supabase 대시보드에서 **Authentication > Providers** 로 이동한 뒤:
+
+- **Email** 을 켜기
+- (선택) **Confirm email**: 켜면 가입 시 인증 메일 발송 후 로그인, 끄면 바로 로그인
+
+이렇게 하면 `/signup`, `/login` 페이지에서 이메일·비밀번호로 회원가입/로그인이 동작합니다.
+
+### 4. 환경 변수 설정
 
 `.env.local` 파일에 추가:
 

@@ -44,16 +44,16 @@ export async function POST(request: NextRequest) {
   // 결제 성공 처리
   if (event.type === 'checkout.session.completed') {
     const session = event.data.object as Stripe.Checkout.Session
-    
+
     try {
       // Stripe에서 고객 정보 가져오기
       const customerId = session.customer as string
       const customer = await stripe.customers.retrieve(customerId)
-      
-      if (typeof customer === 'object' && customer.email) {
+
+      if (typeof customer === 'object' && !customer.deleted && customer.email) {
         // 사용자 조회 또는 생성
         let user = await getUserByEmail(customer.email)
-        
+
         if (!user) {
           user = await createUser(
             customer.email,
@@ -74,8 +74,8 @@ export async function POST(request: NextRequest) {
             subscription.id,
             session.metadata?.planName || 'Unknown',
             subscription.status === 'active' ? 'active' : 'cancelled',
-            new Date(subscription.current_period_start * 1000),
-            new Date(subscription.current_period_end * 1000)
+            new Date((subscription as any).current_period_start * 1000),
+            new Date((subscription as any).current_period_end * 1000)
           )
 
           console.log('Subscription saved to database:', subscription.id)
@@ -89,14 +89,14 @@ export async function POST(request: NextRequest) {
   // 구독 업데이트 처리
   if (event.type === 'customer.subscription.updated') {
     const subscription = event.data.object as Stripe.Subscription
-    
+
     try {
       const customerId = subscription.customer as string
       const customer = await stripe.customers.retrieve(customerId)
-      
-      if (typeof customer === 'object' && customer.email) {
+
+      if (typeof customer === 'object' && !customer.deleted && customer.email) {
         const user = await getUserByEmail(customer.email)
-        
+
         if (user) {
           await saveSubscription(
             user.id,
@@ -104,8 +104,8 @@ export async function POST(request: NextRequest) {
             subscription.id,
             subscription.metadata?.planName || 'Unknown',
             subscription.status === 'active' ? 'active' : 'cancelled',
-            new Date(subscription.current_period_start * 1000),
-            new Date(subscription.current_period_end * 1000)
+            new Date((subscription as any).current_period_start * 1000),
+            new Date((subscription as any).current_period_end * 1000)
           )
         }
       }
@@ -117,7 +117,7 @@ export async function POST(request: NextRequest) {
   // 구독 취소 처리
   if (event.type === 'customer.subscription.deleted') {
     const subscription = event.data.object as Stripe.Subscription
-    
+
     try {
       await cancelSubscription(subscription.id)
       console.log('Subscription cancelled in database:', subscription.id)

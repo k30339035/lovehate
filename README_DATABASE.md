@@ -23,6 +23,10 @@
    - 결제 상태
    - 결제일시
 
+4. **포인트 정보** (`user_points`, `point_logs` 테이블)
+   - 누적 포인트
+   - 포인트 증감 로그 (승리 보상 등)
+
 ## 데이터 흐름
 
 ### 1. 회원가입
@@ -43,6 +47,14 @@
 ```
 GET /api/auth/check-subscription?email=user@example.com
 → Supabase에서 구독 정보 조회
+```
+
+### 4. SelectRobot 승리 포인트 처리
+```
+1. 사용자가 SelectRobot 게임 승리
+2. POST /api/game/selectrobot/win (email, name?, points?)
+3. users upsert (최소 정보)
+4. user_points 누적 + point_logs 기록
 ```
 
 ## 설정 방법
@@ -87,6 +99,17 @@ Body: { email: string, name?: string }
 ### 구독 확인
 ```typescript
 GET /api/auth/check-subscription?email=user@example.com
+```
+
+### 승리 포인트 지급
+```typescript
+POST /api/game/selectrobot/win
+Body: { email: string, name?: string, points?: number }
+```
+
+### 포인트 조회
+```typescript
+GET /api/game/points?email=user@example.com
 ```
 
 ### 결제 세션 생성
